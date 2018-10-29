@@ -81,9 +81,59 @@ DEF ordinateur Shape{
 }
 
 DEF fenetre Transform{
-  center -2.0 1.0 0.0
-  #rotation 0.0 0.0 1.0 1.5708
-  children[ Shape{
+  children[
+  DEF Click TouchSensor{}
+
+  DEF RelaisFenetre Script{
+    eventIn SFTime Cliquer
+    eventOut SFTime StartOpen
+    eventOut SFTime StartClose
+    field SFBool Open FALSE
+
+    url "vrmlscript:
+      function Cliquer(value, time){
+        Open = ! Open;
+        if(Open){StartOpen=time;}
+        else {StartClose=time;}
+      }"
+  }
+
+  Group{ #Ouvrir fenetre
+    children[
+
+    DEF OuvertureTemps TimeSensor{
+      cycleInterval 1
+      startTime 0
+    }
+
+    DEF RotFenetreOpen OrientationInterpolator{
+      key [0 1]
+      keyValue[
+        0.0 0.0 0.0 0.0,
+        0.0 0.0 1.0 1.5708
+      ]
+    }
+    ]
+  }
+  Group{ #fermer la fenetre
+    children[
+      DEF FermetureTemps TimeSensor{
+        cycleInterval 1
+        startTime 0
+      }
+      DEF RotFenetreClose OrientationInterpolator{
+        key [0 1]
+        keyValue[
+          0.0 0.0 1.0 1.5708,
+          0.0 0.0 0.0 0
+        ]
+      }
+
+    ]
+  }
+
+  Transform{
+  children Shape{
     appearance Appearance{ material Material{
       diffuseColor 0.80 0.80 0.80
       transparency 0.2}}
@@ -126,42 +176,37 @@ DEF fenetre Transform{
         ]
     }
   }
-  DEF vitre TouchSensor{}
-  DEF Horloge TimeSensor{cycleInterval 1}
+}
   ]
+  center -2.0 1.0 0.0
 }
 
-DEF ChoixClic Script{
-  eventIn SFTime OnFaitQuoi
-  eventOut SFTime CestUnDoubleClic
-  field SFTime TempsDernierClic 0.0
-  field SFFloat deltaT 0.0
 
-  url "vrmlscript:function OnFaitQuoi(valeur, temps)
-  {
-    deltaT = temps - TempsDernierClic;
-    if( deltaT<0.3) { CestUnDoubleClic = temps;}
-    TempsDernierClic = temps
-  }
-  "
-}
+#DEF ChoixClic Script{
+#  eventIn SFTime OnFaitQuoi
+#  eventOut SFTime CestUnDoubleClic
+#  field SFTime TempsDernierClic 0.0
+#  field SFFloat deltaT 0.0
 
-DEF RotFenetreOpen OrientationInterpolator{
-  key [0 1]
-  keyValue[
-    0.0 0.0 0.0 0.0,
-    0.0 0.0 1.0 1.5708
-  ]
-}
-DEF RotFenetreClose OrientationInterpolator{
-  key [0 1]
-  keyValue[
-    0.0 0.0 0.0 0.0,
-    0.0 0.0 1.0 -1.5708
-  ]
-}
+#  url "vrmlscript:function OnFaitQuoi(valeur, temps)
+#  {
+#    deltaT = temps - TempsDernierClic;
+#    if( deltaT<0.3) { CestUnDoubleClic = temps;}
+#    TempsDernierClic = temps
+#  }
+#  "
+#}
 
-ROUTE vitre.touchTime TO ChoixClic.OnFaitQuoi
-ROUTE ChoixClic.CestUnDoubleClic TO Horloge.set_startTime
-ROUTE Horloge.fraction_changed TO RotFenetreOpen.set_fraction
+#ROUTE vitre.touchTime TO ChoixClic.OnFaitQuoi
+#ROUTE ChoixClic.CestUnDoubleClic TO Horloge.set_startTime
+#ROUTE Horloge.fraction_changed TO RotFenetreOpen.set_fraction
+#ROUTE RotFenetreOpen.value_changed TO fenetre.set_rotation
+
+ROUTE Click.touchTime TO RelaisFenetre.Cliquer
+ROUTE RelaisFenetre.StartOpen TO OuvertureTemps.set_startTime
+ROUTE OuvertureTemps.fraction_changed TO RotFenetreOpen.set_fraction
 ROUTE RotFenetreOpen.value_changed TO fenetre.set_rotation
+
+ROUTE RelaisFenetre.StartClose TO FermetureTemps.set_startTime
+ROUTE FermetureTemps.fraction_changed TO RotFenetreClose.set_fraction
+ROUTE RotFenetreClose.value_changed TO fenetre.set_rotation
