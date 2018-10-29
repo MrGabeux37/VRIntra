@@ -80,45 +80,88 @@ DEF ordinateur Shape{
 
 }
 
-DEF fenetre Shape{
-  appearance Appearance{ material Material{ diffuseColor 0.80 0.80 0.80}}
-  geometry Extrusion{
-    creaseAngle 0.3925
-    endCap TRUE
-    beginCap TRUE
-    solid FALSE
-    crossSection[
-      -2.0 0.0,         -1.9616 -0.3902,
-      -1.8478 -0.7654,  -1.6629 -1.1111,
-      -1.4142 -1.4142,  -1.1111 -1.6629,
-      -0.7654 -1.8478,  -0.3902 -1.9616,
-      0.0 -2.0,         0.3902 -1.9616,
-      0.7654 -1.8478,   1.1111 -1.6629,
-      1.4142 -1.4142,   1.6629 -1.1111,
-      1.8478 -0.7654,   1.9616 -0.3902,
-      2.0 0.0,          1.9616 0.3902,
-      1.8478 0.7654,    1.6629 1.1111,
-      1.4142 1.4142,    1.1111 1.6629,
-      0.7654 1.8478,    0.3902 1.9616,
-      0.0 2.0,          -0.3902 1.9616,
-      -0.7654 1.8478,  -1.1111 1.6629,
-      -1.4142 1.4142,  -1.6629 1.1111,
-      -1.8478 0.7654,  -1.9616 0.3902,
-      -2.0 0.0
-    ] #cercle
+DEF fenetre Transform{
+  center -2.0 1.0 0.0
+  #rotation 0.0 0.0 1.0 1.5708
+  children[ Shape{
+    appearance Appearance{ material Material{
+      diffuseColor 0.80 0.80 0.80
+      transparency 0.2}}
+    geometry Extrusion{
+      creaseAngle 0.3925
+      endCap TRUE
+      beginCap TRUE
+      solid FALSE
+      crossSection[
+        -2.0 0.0,         -1.9616 -0.3902,
+        -1.8478 -0.7654,  -1.6629 -1.1111,
+        -1.4142 -1.4142,  -1.1111 -1.6629,
+        -0.7654 -1.8478,  -0.3902 -1.9616,
+        0.0 -2.0,         0.3902 -1.9616,
+        0.7654 -1.8478,   1.1111 -1.6629,
+        1.4142 -1.4142,   1.6629 -1.1111,
+        1.8478 -0.7654,   1.9616 -0.3902,
+        2.0 0.0,          1.9616 0.3902,
+        1.8478 0.7654,    1.6629 1.1111,
+        1.4142 1.4142,    1.1111 1.6629,
+        0.7654 1.8478,    0.3902 1.9616,
+        0.0 2.0,          -0.3902 1.9616,
+        -0.7654 1.8478,  -1.1111 1.6629,
+        -1.4142 1.4142,  -1.6629 1.1111,
+        -1.8478 0.7654,  -1.9616 0.3902,
+        -2.0 0.0
+        ] #cercle
 
-    spine [ 0.0 1.0 0.0,   0.0 1.44 0.0,
-            0.0 1.66 0.0,  0.0 1.88 0.0,
-            0.0 2.00 0.0,  0.0 2.14 0.0,
-            0.0 2.24 0.0,  0.0 2.30 0.0,
-            0.0 2.36 0.0,  0.0 2.40 0.0
-            ]
-    scale [ 1.0 1.0,    0.98 0.98,
-            0.92 0.92,  0.83 0.83,
-            0.71 0.71,  0.57 0.57,
-            0.35 0.35,  0.30 0.30,
-            0.22 0.22,  0.18 0.18
-    ]
+        spine [ 0.0 1.0 0.0,   0.0 1.44 0.0,
+                0.0 1.66 0.0,  0.0 1.88 0.0,
+                0.0 2.00 0.0,  0.0 2.14 0.0,
+                0.0 2.24 0.0,  0.0 2.30 0.0,
+                0.0 2.36 0.0,  0.0 2.40 0.0
+        ]
+        scale [ 1.0 1.0,    0.98 0.98,
+                0.92 0.92,  0.83 0.83,
+                0.71 0.71,  0.57 0.57,
+                0.35 0.35,  0.30 0.30,
+                0.22 0.22,  0.18 0.18
+        ]
+    }
   }
-
+  DEF vitre TouchSensor{}
+  DEF Horloge TimeSensor{cycleInterval 1}
+  ]
 }
+
+DEF ChoixClic Script{
+  eventIn SFTime OnFaitQuoi
+  eventOut SFTime CestUnDoubleClic
+  field SFTime TempsDernierClic 0.0
+  field SFFloat deltaT 0.0
+
+  url "vrmlscript:function OnFaitQuoi(valeur, temps)
+  {
+    deltaT = temps - TempsDernierClic;
+    if( deltaT<0.3) { CestUnDoubleClic = temps;}
+    TempsDernierClic = temps
+  }
+  "
+}
+
+DEF RotFenetreOpen OrientationInterpolator{
+  key [0 1]
+  keyValue[
+    0.0 0.0 0.0 0.0,
+    0.0 0.0 1.0 1.5708
+  ]
+}
+DEF RotFenetreClose OrientationInterpolator{
+  key [0 1]
+  keyValue[
+    0.0 0.0 0.0 0.0,
+    0.0 0.0 1.0 -1.5708
+  ]
+}
+
+ROUTE vitre.touchTime TO ChoixClic.OnFaitQuoi
+ROUTE ChoixClic.CestUnDoubleClic TO Horloge.set_startTime
+ROUTE Horloge.fraction_changed TO RotFenetreOpen.set_fraction
+ROUTE RotFenetreOpen.value_changed TO fenetre.set_rotation
