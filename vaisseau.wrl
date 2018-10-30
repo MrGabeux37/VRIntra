@@ -1,7 +1,14 @@
 #VRML V2.0 utf8
 
-DEF base Shape{
-  appearance Appearance{ material Material{ diffuseColor 1.0 0.0 0.0}}
+#forme de base du vaisseau
+DEF formeV Shape{
+  appearance Appearance{
+    material Material{ diffuseColor 1.0 1.0 1.0}
+    texture ImageTexture { url "diamond-plate-metal-texture-dirty-grunge-steel-high-resolution-photo-1.jpg" }
+    textureTransform TextureTransform{
+      scale 5.0 5.0
+    }
+  }
   geometry Extrusion{
     creaseAngle 1.57
     endCap TRUE
@@ -41,11 +48,69 @@ DEF base Shape{
 
 }
 
+DEF lumiereSide Transform{
+  translation 0.0 -0.15 0.0
+  children Shape{
+    appearance Appearance{
+      material Material{emissiveColor 0.1 0.1 0.1}
+      texture ImageTexture{url "light-texture-bright-glowing-yellow-white-desktop-background-1.jpg"}
+      textureTransform TextureTransform{
+        rotation 1.57
+      }
+    }
+    geometry Cylinder{
+      radius 4.05
+      height 0.25
+    }
+  }
+}
+
+#tableau de bord du vaisseau
+Group{
+  children[
+  DEF plancher Transform{
+    center 0.0 1.0 0.0
+    children Shape {
+  		appearance Appearance {	material Material {diffuseColor 0.8 0.8 0.8} }
+  		geometry IndexedFaceSet {
+  				coord Coordinate {
+  					point [
+            -2.0 0.0 0.0,         -1.9616 0.0 -0.3902,
+            -1.8478 0.0 -0.7654,  -1.6629 0.0 -1.1111,
+            -1.4142 0.0 -1.4142,  -1.1111 0.0 -1.6629,
+            -0.7654 0.0 -1.8478,  -0.3902 0.0 -1.9616,
+            0.0 0.0 -2.0,         0.3902 0.0 -1.9616,
+            0.7654 0.0 -1.8478,   1.1111 0.0 -1.6629,
+            1.4142 0.0 -1.4142,   1.6629 0.0 -1.1111,
+            1.8478 0.0 -0.7654,   1.9616 0.0 -0.3902,
+            2.0 0.0 0.0,          1.9616 0.0 0.3902,
+            1.8478 0.0 0.7654,    1.6629 0.0 1.1111,
+            1.4142 0.0 1.4142,    1.1111 0.0 1.6629,
+            0.7654 0.0 1.8478,    0.3902 0.0 1.9616,
+            0.0 0.0 2.0,          -0.3902 0.0 1.9616,
+            -0.7654 0.0 1.8478,   -1.1111 0.0 1.6629,
+            -1.4142 0.0 1.4142,   -1.6629 0.0 1.1111,
+            -1.8478 0.0 0.7654,   -1.9616 0.0 0.3902,
+            -2.0 0.0 0.0
+  					]
+  				}
+  				coordIndex [ 0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
+  				solid FALSE
+  			}
+  		}
+      },
+
 DEF ordinateur Shape{
-  appearance Appearance{ material Material{ diffuseColor 0.80 0.80 0.80}}
+  appearance Appearance{
+    material Material{ diffuseColor 0.80 0.80 0.80}
+    texture ImageTexture { url "controlPanelShip.jpg" }
+    textureTransform TextureTransform {
+      scale 2.0 2.0
+    }
+  }
   geometry Extrusion{
     creaseAngle 0.3925
-    endCap TRUE
+    endCap FALSE
     beginCap FALSE
     solid FALSE
     crossSection[
@@ -79,6 +144,8 @@ DEF ordinateur Shape{
   }
 
 }
+]
+}
 
 DEF fenetre Transform{
   children[
@@ -102,7 +169,7 @@ DEF fenetre Transform{
     children[
 
     DEF OuvertureTemps TimeSensor{
-      cycleInterval 1
+      cycleInterval 0.5
       startTime 0
     }
 
@@ -118,7 +185,7 @@ DEF fenetre Transform{
   Group{ #fermer la fenetre
     children[
       DEF FermetureTemps TimeSensor{
-        cycleInterval 1
+        cycleInterval 0.5
         startTime 0
       }
       DEF RotFenetreClose OrientationInterpolator{
@@ -134,9 +201,9 @@ DEF fenetre Transform{
 
   Transform{
   children Shape{
-    appearance Appearance{ material Material{
-      diffuseColor 0.80 0.80 0.80
-      transparency 0.2}}
+    appearance Appearance{
+      texture ImageTexture { url "ceiling_bare_01_transparent1.png" }
+    }
     geometry Extrusion{
       creaseAngle 0.3925
       endCap TRUE
@@ -173,34 +240,13 @@ DEF fenetre Transform{
                 0.71 0.71,  0.57 0.57,
                 0.35 0.35,  0.30 0.30,
                 0.22 0.22,  0.18 0.18
-        ]
+        ] #formation de la fenetre demi-circulaire
     }
   }
 }
   ]
-  center -2.0 1.0 0.0
+  center -2.0 1.0 0.0 #centre de rotation
 }
-
-
-#DEF ChoixClic Script{
-#  eventIn SFTime OnFaitQuoi
-#  eventOut SFTime CestUnDoubleClic
-#  field SFTime TempsDernierClic 0.0
-#  field SFFloat deltaT 0.0
-
-#  url "vrmlscript:function OnFaitQuoi(valeur, temps)
-#  {
-#    deltaT = temps - TempsDernierClic;
-#    if( deltaT<0.3) { CestUnDoubleClic = temps;}
-#    TempsDernierClic = temps
-#  }
-#  "
-#}
-
-#ROUTE vitre.touchTime TO ChoixClic.OnFaitQuoi
-#ROUTE ChoixClic.CestUnDoubleClic TO Horloge.set_startTime
-#ROUTE Horloge.fraction_changed TO RotFenetreOpen.set_fraction
-#ROUTE RotFenetreOpen.value_changed TO fenetre.set_rotation
 
 ROUTE Click.touchTime TO RelaisFenetre.Cliquer
 ROUTE RelaisFenetre.StartOpen TO OuvertureTemps.set_startTime
