@@ -1,215 +1,26 @@
 #VRML V2.0 utf8
 
-#forme de base du vaisseau
-DEF formeV Shape{
-  appearance Appearance{
-    material Material{ diffuseColor 1.0 1.0 1.0}
-    texture ImageTexture { url "diamond-plate-metal-texture-dirty-grunge-steel-high-resolution-photo-1.jpg" }
-    textureTransform TextureTransform{
-      scale 5.0 5.0
-    }
-  }
-  geometry Extrusion{
-    creaseAngle 1.57
-    endCap TRUE
-    beginCap FALSE
-    solid FALSE
-    crossSection[
-      -2.0 0.0,         -1.9616 -0.3902,
-      -1.8478 -0.7654,  -1.6629 -1.1111,
-      -1.4142 -1.4142,  -1.1111 -1.6629,
-      -0.7654 -1.8478,  -0.3902 -1.9616,
-      0.0 -2.0,         0.3902 -1.9616,
-      0.7654 -1.8478,   1.1111 -1.6629,
-      1.4142 -1.4142,   1.6629 -1.1111,
-      1.8478 -0.7654,   1.9616 -0.3902,
-      2.0 0.0,          1.9616 0.3902,
-      1.8478 0.7654,    1.6629 1.1111,
-      1.4142 1.4142,    1.1111 1.6629,
-      0.7654 1.8478,    0.3902 1.9616,
-      0.0 2.0,          -0.3902 1.9616,
-      -0.7654 1.8478,  -1.1111 1.6629,
-      -1.4142 1.4142,  -1.6629 1.1111,
-      -1.8478 0.7654,  -1.9616 0.3902,
-      -2.0 0.0
-    ] #cercle
-
-    spine [ 0.0 1.0 0.0,    0.0 0.5 0.0,
-            0.0 0.25 0.0,   0.0 0.0 0.0,
-            0.0 -0.30 0.0,  0.0 -0.55 0.0,
-            0.0 -0.65 0.0,   0.0 -0.75 0.0
-            ]
-    scale [ 1.0 1.0,    1.20 1.20,
-            1.65 1.65,  2.0 2.0,
-            2.0 2.0,    1.75 1.75,
-            1.5 1.5,    1.0 1.0
-    ]
-  }
-
-}
-
-DEF lumiereSide Transform{
-  translation 0.0 -0.15 0.0
-  children Shape{
-    appearance Appearance{
-      material Material{emissiveColor 0.1 0.1 0.1}
-      texture ImageTexture{url "light-texture-bright-glowing-yellow-white-desktop-background-1.jpg"}
-      textureTransform TextureTransform{
-        rotation 1.57
-      }
-    }
-    geometry Cylinder{
-      radius 4.05
-      height 0.25
-    }
-  }
-}
-
-#tableau de bord du vaisseau
 Group{
   children[
-  DEF plancher Transform{
-    center 0.0 1.0 0.0
-    children Shape {
-  		appearance Appearance {	material Material {diffuseColor 0.8 0.8 0.8} }
-  		geometry IndexedFaceSet {
-  				coord Coordinate {
-  					point [
-            -2.0 0.0 0.0,         -1.9616 0.0 -0.3902,
-            -1.8478 0.0 -0.7654,  -1.6629 0.0 -1.1111,
-            -1.4142 0.0 -1.4142,  -1.1111 0.0 -1.6629,
-            -0.7654 0.0 -1.8478,  -0.3902 0.0 -1.9616,
-            0.0 0.0 -2.0,         0.3902 0.0 -1.9616,
-            0.7654 0.0 -1.8478,   1.1111 0.0 -1.6629,
-            1.4142 0.0 -1.4142,   1.6629 0.0 -1.1111,
-            1.8478 0.0 -0.7654,   1.9616 0.0 -0.3902,
-            2.0 0.0 0.0,          1.9616 0.0 0.3902,
-            1.8478 0.0 0.7654,    1.6629 0.0 1.1111,
-            1.4142 0.0 1.4142,    1.1111 0.0 1.6629,
-            0.7654 0.0 1.8478,    0.3902 0.0 1.9616,
-            0.0 0.0 2.0,          -0.3902 0.0 1.9616,
-            -0.7654 0.0 1.8478,   -1.1111 0.0 1.6629,
-            -1.4142 0.0 1.4142,   -1.6629 0.0 1.1111,
-            -1.8478 0.0 0.7654,   -1.9616 0.0 0.3902,
-            -2.0 0.0 0.0
-  					]
-  				}
-  				coordIndex [ 0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
-  				solid FALSE
-  			}
-  		}
-      },
 
-DEF ordinateur Shape{
-  appearance Appearance{
-    material Material{ diffuseColor 0.80 0.80 0.80}
-    texture ImageTexture { url "controlPanelShip.jpg" }
-    textureTransform TextureTransform {
-      scale 2.0 2.0
-    }
-  }
-  geometry Extrusion{
-    creaseAngle 0.3925
-    endCap FALSE
-    beginCap FALSE
-    solid FALSE
-    crossSection[
-      -2.0 0.0,         -1.9616 -0.3902,
-      -1.8478 -0.7654,  -1.6629 -1.1111,
-      -1.4142 -1.4142,  -1.1111 -1.6629,
-      -0.7654 -1.8478,  -0.3902 -1.9616,
-      0.0 -2.0,         0.3902 -1.9616,
-      0.7654 -1.8478,   1.1111 -1.6629,
-      1.4142 -1.4142,   1.6629 -1.1111,
-      1.8478 -0.7654,   1.9616 -0.3902,
-      2.0 0.0,          1.9616 0.3902,
-      1.8478 0.7654,    1.6629 1.1111,
-      1.4142 1.4142,    1.1111 1.6629,
-      0.7654 1.8478,    0.3902 1.9616,
-      0.0 2.0,          -0.3902 1.9616,
-      -0.7654 1.8478,  -1.1111 1.6629,
-      -1.4142 1.4142,  -1.6629 1.1111,
-      -1.8478 0.7654,  -1.9616 0.3902,
-      -2.0 0.0
-    ] #cercle
-
-    spine [ 0.0 1.0 0.0,    0.0 1.0 0.0,
-            0.0 0.75 0.0,   0.0 0.0 0.0,
-            0.0 0.0 0.0
-            ]
-    scale [ 1.0 1.0,    0.85 0.85,
-            0.65 0.65,  0.65 0.65,
-            1.0 1.0
-    ]
-  }
-
-}
-]
-}
-
-DEF fenetre Transform{
-  children[
-  DEF Click TouchSensor{}
-
-  DEF RelaisFenetre Script{
-    eventIn SFTime Cliquer
-    eventOut SFTime StartOpen
-    eventOut SFTime StartClose
-    field SFBool Open FALSE
-
-    url "vrmlscript:
-      function Cliquer(value, time){
-        Open = ! Open;
-        if(Open){StartOpen=time;}
-        else {StartClose=time;}
-      }"
-  }
-
-  Group{ #Ouvrir fenetre
+  #forme de base du vaisseau
+  DEF formeV Transform{
     children[
-
-    DEF OuvertureTemps TimeSensor{
-      cycleInterval 0.5
-      startTime 0
-    }
-
-    DEF RotFenetreOpen OrientationInterpolator{
-      key [0 1]
-      keyValue[
-        0.0 0.0 0.0 0.0,
-        0.0 0.0 1.0 1.5708
-      ]
-    }
-    ]
-  }
-  Group{ #fermer la fenetre
-    children[
-      DEF FermetureTemps TimeSensor{
-        cycleInterval 0.5
-        startTime 0
-      }
-      DEF RotFenetreClose OrientationInterpolator{
-        key [0 1]
-        keyValue[
-          0.0 0.0 1.0 1.5708,
-          0.0 0.0 0.0 0
-        ]
-      }
-
-    ]
-  }
-
-  Transform{
-  children Shape{
-    appearance Appearance{
-      texture ImageTexture { url "ceiling_bare_01_transparent1.png" }
-    }
-    geometry Extrusion{
-      creaseAngle 0.3925
-      endCap TRUE
-      beginCap TRUE
-      solid FALSE
-      crossSection[
+      DEF OpenTrapDoor TouchSensor{},
+      Shape{
+        appearance Appearance{
+          material Material{ diffuseColor 1.0 1.0 1.0}
+          texture ImageTexture { url "galvanized-metal-texture-steel-plate-high-resolution-wallpaper-1.jpg" }
+          textureTransform TextureTransform{
+            scale 2.0 2.0
+          }
+        }
+        geometry Extrusion{
+          creaseAngle 1.57
+          endCap FALSE
+          beginCap FALSE
+          solid FALSE
+          crossSection[
         -2.0 0.0,         -1.9616 -0.3902,
         -1.8478 -0.7654,  -1.6629 -1.1111,
         -1.4142 -1.4142,  -1.1111 -1.6629,
@@ -229,26 +40,388 @@ DEF fenetre Transform{
         -2.0 0.0
         ] #cercle
 
-        spine [ 0.0 1.0 0.0,   0.0 1.44 0.0,
-                0.0 1.66 0.0,  0.0 1.88 0.0,
-                0.0 2.00 0.0,  0.0 2.14 0.0,
-                0.0 2.24 0.0,  0.0 2.30 0.0,
-                0.0 2.36 0.0,  0.0 2.40 0.0
+        spine [ 0.0 1.0 0.0,    0.0 0.5 0.0,
+                0.0 0.25 0.0,   0.0 0.0 0.0,
+                0.0 -0.30 0.0,  0.0 -0.55 0.0,
+                0.0 -0.65 0.0,   0.0 -0.75 0.0
         ]
-        scale [ 1.0 1.0,    0.98 0.98,
-                0.92 0.92,  0.83 0.83,
-                0.71 0.71,  0.57 0.57,
-                0.35 0.35,  0.30 0.30,
-                0.22 0.22,  0.18 0.18
-        ] #formation de la fenetre demi-circulaire
+        scale [ 1.0 1.0,    1.20 1.20,
+                1.65 1.65,  2.0 2.0,
+                2.0 2.0,    1.75 1.75,
+                1.5 1.5,    1.0 1.0
+        ]
+      }
+
+    }
+  ]
+},
+
+  #dessous arrière du vaisseau
+  DEF trapDoorBack Transform{
+    translation 0.0 -0.75 0.0
+    children Shape {
+        appearance Appearance {
+          material Material {diffuseColor 0.8 0.8 0.8}
+          texture ImageTexture { url "diamond-plate-metal-texture-dirty-grunge-steel-high-resolution-photo-1.jpg" }
+          textureTransform TextureTransform{
+            scale 1.0 1.0
+          }
+         }
+        geometry IndexedFaceSet {
+                coord Coordinate {
+                       point [
+                        -2.0 0.0 0.0,         -1.9616 0.0 -0.3902,
+                        -1.8478 0.0 -0.7654,  -1.6629 0.0 -1.1111,
+                        -1.4142 0.0 -1.4142,  -1.1111 0.0 -1.6629,
+                        -0.7654 0.0 -1.8478,  -0.3902 0.0 -1.9616,
+                        0.0 0.0 -2.0,         0.3902 0.0 -1.9616,
+                        0.7654 0.0 -1.8478,   1.1111 0.0 -1.6629,
+                        1.4142 0.0 -1.4142,   1.6629 0.0 -1.1111,
+                        1.8478 0.0 -0.7654,   1.9616 0.0 -0.3902,
+                        2.0 0.0 0.0,          -2.0 0.0 0.0
+                       ]
+                 }
+                 coordIndex [ 0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+                 solid TRUE
+          }
+    }
+  },
+
+  #dessous avant du vaisseau
+  DEF trapDoorFront Transform{
+    translation 0.0 -0.75 0.0
+    children Shape {
+        appearance Appearance {
+          material Material {diffuseColor 0.8 0.8 0.8}
+          texture ImageTexture { url "diamond-plate-metal-texture-dirty-grunge-steel-high-resolution-photo-1.jpg" }
+          textureTransform TextureTransform{
+            scale 1.0 1.0
+          }
+         }
+        geometry IndexedFaceSet {
+                coord Coordinate {
+                       point [
+                       2.0 0.0 0.0,          1.9616 0.0 0.3902,
+                       1.8478 0.0 0.7654,    1.6629 0.0 1.1111,
+                       1.4142 0.0 1.4142,    1.1111 0.0 1.6629,
+                       0.7654 0.0 1.8478,    0.3902 0.0 1.9616,
+                       0.0 0.0 2.0,          -0.3902 0.0 1.9616,
+                       -0.7654 0.0 1.8478,   -1.1111 0.0 1.6629,
+                       -1.4142 0.0 1.4142,   -1.6629 0.0 1.1111,
+                       -1.8478 0.0 0.7654,   -1.9616 0.0 0.3902,
+                       -2.0 0.0 0.0,         2.0 0.0 0.0
+                       ]
+                 }
+                 coordIndex [ 0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+                 solid TRUE
+          }
+    }
+  },
+
+  #tour du vaisseau
+  DEF lumiereSide Transform{
+    translation 0.0 -0.15 0.0
+    children Shape{
+      appearance Appearance{
+        material Material{emissiveColor 0.1 0.1 0.1}
+        texture ImageTexture{url "light-texture-bright-glowing-yellow-white-desktop-background-1.jpg"}
+        textureTransform TextureTransform{
+          rotation 1.57
+          scale 2.0 2.0
+        }
+      }
+      geometry Cylinder{
+        radius 4.035
+        height 0.25
+      }
+    }
+  },
+
+  DEF plancherTrapDoor Transform{
+    translation 0.0 -0.71 0.0
+    children Shape {
+        appearance Appearance {
+          material Material {
+            diffuseColor 0     0.1588    0.01514
+            emissiveColor 0     0.1588   0.01514
+            }
+          }
+          geometry IndexedFaceSet {
+                coord Coordinate {
+                       point [
+                        -2.0 0.0 0.0,         -1.9616 0.0 -0.3902,
+                        -1.8478 0.0 -0.7654,  -1.6629 0.0 -1.1111,
+                        -1.4142 0.0 -1.4142,  -1.1111 0.0 -1.6629,
+                        -0.7654 0.0 -1.8478,  -0.3902 0.0 -1.9616,
+                        0.0 0.0 -2.0,         0.3902 0.0 -1.9616,
+                        0.7654 0.0 -1.8478,   1.1111 0.0 -1.6629,
+                        1.4142 0.0 -1.4142,   1.6629 0.0 -1.1111,
+                        1.8478 0.0 -0.7654,   1.9616 0.0 -0.3902,
+                        2.0 0.0 0.0,          1.9616 0.0 0.3902,
+                        1.8478 0.0 0.7654,    1.6629 0.0 1.1111,
+                        1.4142 0.0 1.4142,    1.1111 0.0 1.6629,
+                        0.7654 0.0 1.8478,    0.3902 0.0 1.9616,
+                        0.0 0.0 2.0,          -0.3902 0.0 1.9616,
+                        -0.7654 0.0 1.8478,   -1.1111 0.0 1.6629,
+                        -1.4142 0.0 1.4142,   -1.6629 0.0 1.1111,
+                        -1.8478 0.0 0.7654,   -1.9616 0.0 0.3902,
+                        -2.0 0.0 0.0,
+                       ]
+                 }
+                 coordIndex [ 0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
+                 solid FALSE
+          }
+        }
+    },
+  #tableau de bord du vaisseau
+  Group{
+    children[
+      DEF plancher Transform{
+        center 0.0 1.0 0.0
+        children Shape {
+  		      appearance Appearance {	material Material {diffuseColor 0.8 0.8 0.8} }
+  		        geometry IndexedFaceSet {
+  				          coord Coordinate {
+  					               point [
+                            -2.0 0.0 0.0,         -1.9616 0.0 -0.3902,
+                            -1.8478 0.0 -0.7654,  -1.6629 0.0 -1.1111,
+                            -1.4142 0.0 -1.4142,  -1.1111 0.0 -1.6629,
+                            -0.7654 0.0 -1.8478,  -0.3902 0.0 -1.9616,
+                            0.0 0.0 -2.0,         0.3902 0.0 -1.9616,
+                            0.7654 0.0 -1.8478,   1.1111 0.0 -1.6629,
+                            1.4142 0.0 -1.4142,   1.6629 0.0 -1.1111,
+                            1.8478 0.0 -0.7654,   1.9616 0.0 -0.3902,
+                            2.0 0.0 0.0,          1.9616 0.0 0.3902,
+                            1.8478 0.0 0.7654,    1.6629 0.0 1.1111,
+                            1.4142 0.0 1.4142,    1.1111 0.0 1.6629,
+                            0.7654 0.0 1.8478,    0.3902 0.0 1.9616,
+                            0.0 0.0 2.0,          -0.3902 0.0 1.9616,
+                            -0.7654 0.0 1.8478,   -1.1111 0.0 1.6629,
+                            -1.4142 0.0 1.4142,   -1.6629 0.0 1.1111,
+                            -1.8478 0.0 0.7654,   -1.9616 0.0 0.3902,
+                            -2.0 0.0 0.0,
+  					               ]
+  				           }
+  				           coordIndex [ 0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
+  				           solid FALSE
+  			      }
+  		  }
+      },
+
+      DEF ordinateur Shape{
+        appearance Appearance{
+          material Material{ diffuseColor 0.80 0.80 0.80}
+          texture ImageTexture { url "controlPanelShip.jpg" }
+          textureTransform TextureTransform {
+            scale 2.0 2.0
+          }
+        }
+        geometry Extrusion{
+          creaseAngle 0.3925
+          endCap FALSE
+          beginCap FALSE
+          solid FALSE
+          crossSection[
+          -2.0 0.0,         -1.9616 -0.3902,
+          -1.8478 -0.7654,  -1.6629 -1.1111,
+          -1.4142 -1.4142,  -1.1111 -1.6629,
+          -0.7654 -1.8478,  -0.3902 -1.9616,
+          0.0 -2.0,         0.3902 -1.9616,
+          0.7654 -1.8478,   1.1111 -1.6629,
+          1.4142 -1.4142,   1.6629 -1.1111,
+          1.8478 -0.7654,   1.9616 -0.3902,
+          2.0 0.0,          1.9616 0.3902,
+          1.8478 0.7654,    1.6629 1.1111,
+          1.4142 1.4142,    1.1111 1.6629,
+          0.7654 1.8478,    0.3902 1.9616,
+          0.0 2.0,          -0.3902 1.9616,
+          -0.7654 1.8478,  -1.1111 1.6629,
+          -1.4142 1.4142,  -1.6629 1.1111,
+          -1.8478 0.7654,  -1.9616 0.3902,
+        -2.0 0.0
+        ] #cercle
+
+        spine [ 0.0 1.0 0.0,    0.0 1.0 0.0,
+                0.0 0.75 0.0,   0.0 0.0 0.0,
+                0.0 0.0 0.0
+        ]
+        scale [ 1.0 1.0,    0.85 0.85,
+                0.65 0.65,  0.65 0.65,
+                1.0 1.0
+        ]
+      }
+
+    }
+    ]
+  },
+
+  DEF fenetre Transform{
+    children[
+    DEF Click TouchSensor{}
+
+      DEF RelaisFenetre Script{
+        eventIn SFTime Cliquer
+        eventOut SFTime StartOpen
+        eventOut SFTime StartClose
+        field SFBool Open FALSE
+
+        url "vrmlscript:
+          function Cliquer(value, time){
+            Open = ! Open;
+            if(Open){StartOpen=time;}
+            else {StartClose=time;}
+          }"
+      }
+
+      Group{ #Ouvrir fenetre
+        children[
+
+          DEF OuvertureTemps TimeSensor{
+            cycleInterval 0.5
+            startTime 0
+          }
+
+          DEF RotFenetreOpen OrientationInterpolator{
+            key [0 1]
+            keyValue[
+              0.0 0.0 0.0 0.0,
+              0.0 0.0 1.0 1.5708
+            ]
+          }
+        ]
+      }
+      Group{ #fermer la fenetre
+        children[
+          DEF FermetureTemps TimeSensor{
+            cycleInterval 0.5
+            startTime 0
+          }
+          DEF RotFenetreClose OrientationInterpolator{
+            key [0 1]
+            keyValue[
+              0.0 0.0 1.0 1.5708,
+              0.0 0.0 0.0 0
+            ]
+          }
+
+        ]
+      }
+
+      Transform{
+        children Shape{
+          appearance Appearance{
+            texture ImageTexture { url "ceiling_bare_01_transparent1.png" }
+          }
+          geometry Extrusion{
+            creaseAngle 0.3925
+            endCap TRUE
+            beginCap TRUE
+            solid FALSE
+            crossSection[
+              -2.0 0.0,         -1.9616 -0.3902,
+              -1.8478 -0.7654,  -1.6629 -1.1111,
+              -1.4142 -1.4142,  -1.1111 -1.6629,
+              -0.7654 -1.8478,  -0.3902 -1.9616,
+              0.0 -2.0,         0.3902 -1.9616,
+              0.7654 -1.8478,   1.1111 -1.6629,
+              1.4142 -1.4142,   1.6629 -1.1111,
+              1.8478 -0.7654,   1.9616 -0.3902,
+              2.0 0.0,          1.9616 0.3902,
+              1.8478 0.7654,    1.6629 1.1111,
+              1.4142 1.4142,    1.1111 1.6629,
+              0.7654 1.8478,    0.3902 1.9616,
+              0.0 2.0,          -0.3902 1.9616,
+              -0.7654 1.8478,  -1.1111 1.6629,
+              -1.4142 1.4142,  -1.6629 1.1111,
+              -1.8478 0.7654,  -1.9616 0.3902,
+              -2.0 0.0
+            ] #cercle
+
+            spine [ 0.0 1.0 0.0,   0.0 1.44 0.0,
+                    0.0 1.66 0.0,  0.0 1.88 0.0,
+                    0.0 2.00 0.0,  0.0 2.14 0.0,
+                    0.0 2.24 0.0,  0.0 2.30 0.0,
+                    0.0 2.36 0.0,  0.0 2.40 0.0
+            ]
+            scale [ 1.0 1.0,    0.98 0.98,
+                    0.92 0.92,  0.83 0.83,
+                    0.71 0.71,  0.57 0.57,
+                    0.35 0.35,  0.30 0.30,
+                    0.22 0.22,  0.18 0.18
+            ] #formation de la fenetre demi-circulaire
+          }
+        }
+      }
+      ]
+  center -2.0 1.0 0.0 #centre de rotation
+    }
+  ]
+}
+
+DEF KidnapTime TimeSensor{
+  loop FALSE
+  cycleInterval 10
+  startTime 0
+}
+
+DEF MoveTrapBack PositionInterpolator{
+  key[0, 0.1,0.9, 1]
+  keyValue[
+    0.0 -0.75 0.0,
+    0.0 -0.75 -2.0,
+    0.0 -0.75 -2.0,
+    0.0 -0.75 0.0
+  ]
+}
+
+DEF MoveTrapFront PositionInterpolator{
+  key[0, 0.1,0.9, 1]
+  keyValue[
+    0.0 -0.75 0.0,
+    0.0 -0.75 2.0,
+    0.0 -0.75 2.0,
+    0.0 -0.75 0.0
+  ]
+}
+
+#lumière de la porte de kidnapping
+Transform{
+  translation 0.0 -25.75 0.0
+  children Shape{
+    appearance Appearance{
+      material DEF KidnapLight Material{
+        diffuseColor 0     0.1588    0.01514
+        emissiveColor 0     0.1588   0.01514
+        shininess 0.5
+        transparency 1.0
+      }
+    }
+    geometry Cylinder{
+      radius 2.0
+      height 50.0
     }
   }
 }
-  ]
-  center -2.0 1.0 0.0 #centre de rotation
+
+DEF ToggleLumiere ScalarInterpolator{
+  key[0.1, 0.101, 0.8, 0.9]
+  keyValue[1.0, 0.7, 0.7, 1.0]
 }
 
+#animation trapdoor activation
+ROUTE OpenTrapDoor.touchTime TO KidnapTime.startTime
+#faisceau de lumière
+ROUTE KidnapTime.fraction_changed TO ToggleLumiere.set_fraction
+ROUTE ToggleLumiere.value_changed TO KidnapLight.set_transparency
+#une trapdoor
+ROUTE KidnapTime.fraction_changed TO MoveTrapBack.set_fraction
+ROUTE MoveTrapBack.value_changed TO trapDoorBack.set_translation
+#autre trapdoor
+ROUTE KidnapTime.fraction_changed TO MoveTrapFront.set_fraction
+ROUTE MoveTrapFront.value_changed TO trapDoorFront.set_translation
+#vitre click
 ROUTE Click.touchTime TO RelaisFenetre.Cliquer
+#vitre rotation
 ROUTE RelaisFenetre.StartOpen TO OuvertureTemps.set_startTime
 ROUTE OuvertureTemps.fraction_changed TO RotFenetreOpen.set_fraction
 ROUTE RotFenetreOpen.value_changed TO fenetre.set_rotation
