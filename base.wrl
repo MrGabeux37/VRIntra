@@ -1,0 +1,23 @@
+#VRML V2.0 utf8
+Viewpoint{
+  fieldOfView 0.785392
+  position 2.5 0 20
+  orientation 1 0 0 0
+  jump TRUE
+}
+
+Group{
+  children[
+    Transform{
+      children[
+        Inline {url["vaisseau.wrl"]}
+      ]
+    },
+    Transform{
+      translation 5.0 0.0 0.0
+      children[
+        Inline {url["Alien.wrl"]}
+      ]
+    }
+  ]
+}
