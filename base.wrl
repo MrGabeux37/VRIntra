@@ -9,6 +9,7 @@ Viewpoint{
 Group{
   children[
     Transform{
+      rotation 0 1 0 4.7116
       children[
         Inline {url["vaisseau.wrl"]}
       ]
