@@ -6,7 +6,6 @@ Group{
   #forme de base du vaisseau
   DEF formeV Transform{
     children[
-      DEF OpenTrapDoor TouchSensor{},
       Shape{
         appearance Appearance{
           material Material{ diffuseColor 1.0 1.0 1.0}
@@ -56,67 +55,6 @@ Group{
   ]
 },
 
-  #dessous arrière du vaisseau
-  DEF trapDoorBack Transform{
-    translation 0.0 -0.75 0.0
-    children Shape {
-        appearance Appearance {
-          material Material {diffuseColor 0.8 0.8 0.8}
-          texture ImageTexture { url "diamond-plate-metal-texture-dirty-grunge-steel-high-resolution-photo-1.jpg" }
-          textureTransform TextureTransform{
-            scale 1.0 1.0
-          }
-         }
-        geometry IndexedFaceSet {
-                coord Coordinate {
-                       point [
-                        -2.0 0.0 0.0,         -1.9616 0.0 -0.3902,
-                        -1.8478 0.0 -0.7654,  -1.6629 0.0 -1.1111,
-                        -1.4142 0.0 -1.4142,  -1.1111 0.0 -1.6629,
-                        -0.7654 0.0 -1.8478,  -0.3902 0.0 -1.9616,
-                        0.0 0.0 -2.0,         0.3902 0.0 -1.9616,
-                        0.7654 0.0 -1.8478,   1.1111 0.0 -1.6629,
-                        1.4142 0.0 -1.4142,   1.6629 0.0 -1.1111,
-                        1.8478 0.0 -0.7654,   1.9616 0.0 -0.3902,
-                        2.0 0.0 0.0,          -2.0 0.0 0.0
-                       ]
-                 }
-                 coordIndex [ 0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
-                 solid TRUE
-          }
-    }
-  },
-
-  #dessous avant du vaisseau
-  DEF trapDoorFront Transform{
-    translation 0.0 -0.75 0.0
-    children Shape {
-        appearance Appearance {
-          material Material {diffuseColor 0.8 0.8 0.8}
-          texture ImageTexture { url "diamond-plate-metal-texture-dirty-grunge-steel-high-resolution-photo-1.jpg" }
-          textureTransform TextureTransform{
-            scale 1.0 1.0
-          }
-         }
-        geometry IndexedFaceSet {
-                coord Coordinate {
-                       point [
-                       2.0 0.0 0.0,          1.9616 0.0 0.3902,
-                       1.8478 0.0 0.7654,    1.6629 0.0 1.1111,
-                       1.4142 0.0 1.4142,    1.1111 0.0 1.6629,
-                       0.7654 0.0 1.8478,    0.3902 0.0 1.9616,
-                       0.0 0.0 2.0,          -0.3902 0.0 1.9616,
-                       -0.7654 0.0 1.8478,   -1.1111 0.0 1.6629,
-                       -1.4142 0.0 1.4142,   -1.6629 0.0 1.1111,
-                       -1.8478 0.0 0.7654,   -1.9616 0.0 0.3902,
-                       -2.0 0.0 0.0,         2.0 0.0 0.0
-                       ]
-                 }
-                 coordIndex [ 0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
-                 solid TRUE
-          }
-    }
-  },
 
   #tour du vaisseau
   DEF lumiereSide Transform{
@@ -306,7 +244,7 @@ Group{
 
         ]
       }
-
+      #forme de la fenetre
       Transform{
         children Shape{
           appearance Appearance{
@@ -358,67 +296,8 @@ Group{
   ]
 }
 
-DEF KidnapTime TimeSensor{
-  loop FALSE
-  cycleInterval 10
-  startTime 0
-}
 
-DEF MoveTrapBack PositionInterpolator{
-  key[0, 0.1,0.9, 1]
-  keyValue[
-    0.0 -0.75 0.0,
-    0.0 -0.75 -2.0,
-    0.0 -0.75 -2.0,
-    0.0 -0.75 0.0
-  ]
-}
 
-DEF MoveTrapFront PositionInterpolator{
-  key[0, 0.1,0.9, 1]
-  keyValue[
-    0.0 -0.75 0.0,
-    0.0 -0.75 2.0,
-    0.0 -0.75 2.0,
-    0.0 -0.75 0.0
-  ]
-}
-
-#lumière de la porte de kidnapping
-Transform{
-  translation 0.0 -25.75 0.0
-  children Shape{
-    appearance Appearance{
-      material DEF KidnapLight Material{
-        diffuseColor 0     0.1588    0.01514
-        emissiveColor 0     0.1588   0.01514
-        shininess 0.5
-        transparency 1.0
-      }
-    }
-    geometry Cylinder{
-      radius 2.0
-      height 50.0
-    }
-  }
-}
-
-DEF ToggleLumiere ScalarInterpolator{
-  key[0.1, 0.101, 0.8, 0.9]
-  keyValue[1.0, 0.7, 0.7, 1.0]
-}
-
-#animation trapdoor activation
-ROUTE OpenTrapDoor.touchTime TO KidnapTime.startTime
-#faisceau de lumière
-ROUTE KidnapTime.fraction_changed TO ToggleLumiere.set_fraction
-ROUTE ToggleLumiere.value_changed TO KidnapLight.set_transparency
-#une trapdoor
-ROUTE KidnapTime.fraction_changed TO MoveTrapBack.set_fraction
-ROUTE MoveTrapBack.value_changed TO trapDoorBack.set_translation
-#autre trapdoor
-ROUTE KidnapTime.fraction_changed TO MoveTrapFront.set_fraction
-ROUTE MoveTrapFront.value_changed TO trapDoorFront.set_translation
 #vitre click
 ROUTE Click.touchTime TO RelaisFenetre.Cliquer
 #vitre rotation
