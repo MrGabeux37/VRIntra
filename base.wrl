@@ -354,9 +354,53 @@ DEF SizeHumain PositionInterpolator{
   ]
 }
 
+Sound{
+  source DEF sonVaisseau AudioClip{
+    url "UFO20.wav"
+    loop FALSE
+  }
+  minFront 100.0
+  minBack  100.0
+  maxFront 100.0
+  maxBack  100.0
+}
+
+Sound{
+  source DEF sonHumain AudioClip{
+    url "Screams.wav"
+    loop FALSE
+    stopTime 19
+  }
+  minFront 100.0
+  minBack  100.0
+  maxFront 100.0
+  maxBack  100.0
+}
+
+DEF StartSonHumain Script{
+  eventIn SFTime Cliquer
+  eventOut SFTime StartTime
+  eventOut SFTime StopTime
+  field SFBool Open FALSE
+
+  url "vrmlscript:
+    function Cliquer(value, time){
+      Open = ! Open;
+      if(Open){
+        StartTime=time+12;
+        StopTime = time+16;
+        }
+      else ;
+    }"
+}
+
 #animation trapdoor activation
 ROUTE OpenTrapDoor.touchTime TO KidnapTime.startTime
 ROUTE OpenTrapDoor.touchTime TO SpaceShipTime.startTime
+ROUTE OpenTrapDoor.touchTime TO sonVaisseau.set_startTime
+ROUTE OpenTrapDoor.touchTime TO StartSonHumain.Cliquer
+ROUTE StartSonHumain.StartTime TO sonHumain.set_startTime
+ROUTE StartSonHumain.StopTime TO sonHumain.set_stopTime
 #faisceau de lumière transparence
 ROUTE KidnapTime.fraction_changed TO ToggleLumiere.set_fraction
 ROUTE ToggleLumiere.value_changed TO KidnapLight.set_transparency

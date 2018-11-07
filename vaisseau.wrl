@@ -215,7 +215,7 @@ Group{
         children[
 
           DEF OuvertureTemps TimeSensor{
-            cycleInterval 0.5
+            cycleInterval 1.5
             startTime 0
           }
 
@@ -231,7 +231,7 @@ Group{
       Group{ #fermer la fenetre
         children[
           DEF FermetureTemps TimeSensor{
-            cycleInterval 0.5
+            cycleInterval 1.5
             startTime 0
           }
           DEF RotFenetreClose OrientationInterpolator{
@@ -292,13 +292,25 @@ Group{
       }
       ]
   center -2.0 1.0 0.0 #centre de rotation
+    },
+    Sound{
+      source DEF sonFenetre AudioClip{
+        url "fenetre_son.wav"
+        loop FALSE
+      }
+      minFront 100.0
+      minBack  100.0
+      maxFront 100.0
+      maxBack  100.0
     }
   ]
 }
 
 #vitre click
 ROUTE Click.touchTime TO RelaisFenetre.Cliquer
-#vitre rotation
+#Son de la fenetre qui s'ouvre et se ferme.
+ROUTE Click.touchTime TO sonFenetre.set_startTime
+#rotation de la vitre
 ROUTE RelaisFenetre.StartOpen TO OuvertureTemps.set_startTime
 ROUTE OuvertureTemps.fraction_changed TO RotFenetreOpen.set_fraction
 ROUTE RotFenetreOpen.value_changed TO fenetre.set_rotation
