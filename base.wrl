@@ -1,0 +1,454 @@
+#VRML V2.0 utf8
+
+#texte indicatif des instructions
+Billboard{
+  axisOfRotation 0.0 1.0 0.0
+  children[
+    Transform{
+      translation 5.0 20.0 0.0
+      children Shape{
+        appearance Appearance{
+          material Material{
+            emissiveColor 0 0 0
+            diffuseColor 0 0 0
+          }
+        }
+        geometry Text{
+          string "Appuyer sur la vitre du vaisseau ou l'humain pour débuter les animations."
+          fontStyle FontStyle {
+            justify "MIDDLE"
+            size 2.0
+            style "BOLD"
+          }
+        }
+      }
+    }
+  ]
+}
+
+#soleil
+DirectionalLight{
+  direction 0.0 -1.0 -0.2
+  intensity 1.0
+  ambientIntensity 0.5
+  color 1.0 0.9 0.7
+}
+
+#restriction de la navigation aux différents viewpoint établi
+NavigationInfo{
+  type ["NONE"]
+}
+
+#arrière-plan
+Background{
+  skyColor[
+    0.0 0.2 0.7,
+    0.0 0.5 1.0,
+    1.0 1.0 1.0
+  ]
+  skyAngle[1.309,1.571]
+  groundColor [
+    0.1 0.10 0.0,
+    0.14 0.25 0.2,
+    0.1 0.60 0.2,
+  ]
+  groundAngle [ 1.309, 1.571 ]
+}
+
+#point de vue 1
+Viewpoint{
+  fieldOfView 0.785392
+  position 2.5 5.0 50
+  orientation 1 0 0 0
+  jump TRUE
+  description "face"
+}
+
+#point de vue 2
+Viewpoint{
+  fieldOfView 0.785392
+  position 50.0 5.0 0
+  orientation 0 1 0 1.57
+  jump TRUE
+  description "droite"
+}
+
+#point de vue 3
+Viewpoint{
+  fieldOfView 0.785392
+  position -40.0 5.0 40
+  orientation 0 1.0 0 -0.785
+  jump TRUE
+  description "coin gauche"
+}
+
+#point de vue 3
+Viewpoint{
+  fieldOfView 0.785392
+  position 50.0 5.0 40
+  orientation 0 1.0 0 0.785
+  jump TRUE
+  description "coin droit"
+}
+
+#importation vaisseau
+DEF spaceship Transform{
+  translation -20.0 10.0 0.0
+  rotation 0 1 0 4.7116
+  children [
+    Inline {url["vaisseau.wrl"]},
+
+  #dessous arrière du vaisseau
+    DEF trapDoorBack Transform{
+      translation 0.0 -0.75 0.0
+      children Shape {
+        appearance Appearance {
+          material Material {diffuseColor 0.8 0.8 0.8}
+          texture ImageTexture { url "diamond-plate-metal-texture-dirty-grunge-steel-high-resolution-photo-1.jpg" }
+          textureTransform TextureTransform{
+            scale 1.0 1.0
+          }
+        }
+        geometry IndexedFaceSet {
+          coord Coordinate {
+            point [
+              -2.0 0.0 0.0,         -1.9616 0.0 -0.3902,
+              -1.8478 0.0 -0.7654,  -1.6629 0.0 -1.1111,
+              -1.4142 0.0 -1.4142,  -1.1111 0.0 -1.6629,
+              -0.7654 0.0 -1.8478,  -0.3902 0.0 -1.9616,
+              0.0 0.0 -2.0,         0.3902 0.0 -1.9616,
+              0.7654 0.0 -1.8478,   1.1111 0.0 -1.6629,
+              1.4142 0.0 -1.4142,   1.6629 0.0 -1.1111,
+              1.8478 0.0 -0.7654,   1.9616 0.0 -0.3902,
+              2.0 0.0 0.0,          -2.0 0.0 0.0
+            ]
+          }
+          coordIndex [ 0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+          solid TRUE
+        }
+      }
+    },
+
+    #dessous avant du vaisseau
+    DEF trapDoorFront Transform{
+      translation 0.0 -0.75 0.0
+      children Shape {
+        appearance Appearance {
+          material Material {diffuseColor 0.8 0.8 0.8}
+          texture ImageTexture { url "diamond-plate-metal-texture-dirty-grunge-steel-high-resolution-photo-1.jpg" }
+          textureTransform TextureTransform{
+            scale 1.0 1.0
+          }
+        }
+        geometry IndexedFaceSet {
+          coord Coordinate {
+            point [
+              2.0 0.0 0.0,          1.9616 0.0 0.3902,
+              1.8478 0.0 0.7654,    1.6629 0.0 1.1111,
+              1.4142 0.0 1.4142,    1.1111 0.0 1.6629,
+              0.7654 0.0 1.8478,    0.3902 0.0 1.9616,
+              0.0 0.0 2.0,          -0.3902 0.0 1.9616,
+              -0.7654 0.0 1.8478,   -1.1111 0.0 1.6629,
+              -1.4142 0.0 1.4142,   -1.6629 0.0 1.1111,
+              -1.8478 0.0 0.7654,   -1.9616 0.0 0.3902,
+              -2.0 0.0 0.0,         2.0 0.0 0.0
+              ]
+            }
+          coordIndex [ 0, 1, 2, 3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+          solid TRUE
+        }
+      }
+    },
+      #lumière de la porte de kidnapping
+    DEF KidnapLumiere Transform{
+      translation 0.0 -25.75 0.0
+      children Shape{
+        appearance Appearance{
+          material DEF KidnapLight Material{
+            diffuseColor 0 0.1588 0.01514
+            emissiveColor 0 0.1588 0.01514
+            shininess 0.5
+            transparency 1.0
+          }
+        }
+        geometry Cylinder{
+          radius 2.0
+          height 50.0
+        }
+      }
+    }
+  ]
+}
+
+#importation Alien (séparé du vaisseau pour projet future (sortir l'alien du vaisseau))
+DEF Alien Transform{
+  translation -20.0 11.5 0.0
+  scale 2.0 2.0 2.0
+  children Inline {url["alien.wrl"]}
+}
+
+#importation humain
+DEF Humain Transform{
+  translation 25.0 -3.25 0.0
+  scale 2.0 2.0 2.0
+  children [
+    Inline {url["humain.wrl"]},
+    DEF OpenTrapDoor TouchSensor{},
+  ]
+}
+
+#Rue
+Shape{
+  appearance Appearance{
+    material Material{}
+    texture ImageTexture { url "tunnel_road.jpg" }
+    textureTransform TextureTransform{
+      rotation 1.571
+      scale 5.0 3.0
+    }
+  }
+  geometry IndexedFaceSet{
+    coord Coordinate{
+      point[
+        -50.0 -5.0 10.0, -50.0 -5.0 -10.0,
+        50.0 -5.0 -10.0, 50.0 -5.0 10.0
+      ]
+    }
+    coordIndex[0,1,2,3]
+    solid FALSE
+  }
+}
+
+#gazon top
+Shape{
+  appearance Appearance{
+    material Material{}
+    texture ImageTexture { url "tileable-s7002876.png" }
+    textureTransform TextureTransform{
+      rotation 1.571
+      scale 5.0 3.0
+    }
+  }
+  geometry IndexedFaceSet{
+    coord Coordinate{
+      point[
+        -50.0 -5.0 -10.0, -50.0 -5.0 -30.0,
+        50.0 -5.0 -30.0,  50.0 -5.0 -10.0
+      ]
+    }
+    coordIndex[0,1,2,3]
+    solid FALSE
+  }
+}
+
+#gazon down
+Shape{
+  appearance Appearance{
+    material Material{}
+    texture ImageTexture { url "tileable-s7002876.png" }
+    textureTransform TextureTransform{
+      rotation 1.571
+      scale 3.0 3.0
+    }
+  }
+  geometry IndexedFaceSet{
+    coord Coordinate{
+      point[
+        -50.0 -5.0 10.0, -50.0 -5.0 30.0,
+        50.0 -5.0 30.0,  50.0 -5.0 10.0
+      ]
+    }
+    coordIndex[0,1,2,3]
+    solid FALSE
+  }
+}
+
+DEF KidnapTime TimeSensor{
+  loop FALSE
+  cycleInterval 20
+  startTime 0
+}
+DEF SpaceShipTime TimeSensor{
+  loop FALSE
+  cycleInterval 10
+  startTime 0
+}
+
+DEF MoveVaisseau PositionInterpolator{
+  key[  0, 0.05, 0.1 , 0.15, 0.20, 0.25, 0.3, 0.35, 0.40, 0.45, 0.50,
+        0.55, 0.60, 0.65, 0.70, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+  keyValue[
+    -20.0 10.0 0.0,
+    -15.0 10.0 4.0,
+    -12.0 7.5 11.0,
+    -5.0 18.0 13.0,
+    0.0 18.0 14.0,
+    0.0 15.0 10.0,
+    5.0 14.0 8.6603,
+    8.6603, 13.0 5.0,
+    10.0 12.0 0.0,
+    8.6603 11.0 -5.0,
+    5.0 10.0 -8.6603,
+    0.0 9.0 -10.0,
+    -5.0 8.0 -8.6603,
+    -8.6603 7.0 -5.0,
+    -10.0 6.0 0.0,
+    -8.6603 5.0 5.0,
+    -5.0 4.0 8.6603,
+    0.0 3.0 10,
+    15.0 3.0 10,
+    20.0 10.0 0.0,
+    25.0 10.0 0.0
+  ]
+}
+
+DEF MoveAlien PositionInterpolator{
+  key[  0, 0.05, 0.1 , 0.15, 0.20, 0.25, 0.3, 0.35, 0.40, 0.45, 0.50,
+        0.55, 0.60, 0.65, 0.70, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+        keyValue[
+          -20.0 11.5 0.0,
+          -15.0 11.5 4.0,
+          -12.0 9 11.0,
+          -5.0 19.5 13.0,
+          0.0 19.5 14.0,
+          0.0 16.5 10.0,
+          5.0 15.5 8.6603,
+          8.6603, 14.5 5.0,
+          10.0 13.5 0.0,
+          8.6603 12.5 -5.0,
+          5.0 11.5 -8.6603,
+          0.0 10.5 -10.0,
+          -5.0 9.5 -8.6603,
+          -8.6603 8.5 -5.0,
+          -10.0 7.5 0.0,
+          -8.6603 6.5 5.0,
+          -5.0 5.5 8.6603,
+          0.0 4.5 10,
+          15.0 4.5 10,
+          20.0 11.5 0.0,
+          25.0 11.5 0.0
+        ]
+}
+
+DEF MoveTrapBack PositionInterpolator{
+  key[0.5, 0.6,0.9, 1]
+  keyValue[
+    0.0 -0.75 0.0,
+    0.0 -0.75 -2.0,
+    0.0 -0.75 -2.0,
+    0.0 -0.75 0.0
+  ]
+}
+
+DEF MoveTrapFront PositionInterpolator{
+  key[0.5, 0.6,0.9, 1]
+  keyValue[
+    0.0 -0.75 0.0,
+    0.0 -0.75 2.0,
+    0.0 -0.75 2.0,
+    0.0 -0.75 0.0
+  ]
+}
+
+DEF ToggleLumiere ScalarInterpolator{
+  key[0.6, 0.601, 0.9, 1.0]
+  keyValue[
+    1.0, 0.7,
+    0.7, 1.0
+  ]
+}
+DEF SizeLumiere PositionInterpolator{
+  key[0.9,1.0]
+  keyValue[
+    1.0 1.0 1.0,
+    0.0 1.0 1.0
+  ]
+}
+
+DEF MoveHumain PositionInterpolator{
+  key[0.601,0.8]
+  keyValue[
+  25.0 -3.25 0.0,
+  25.0 10.0 0.0
+  ]
+}
+
+DEF SizeHumain PositionInterpolator{
+  key[0.601,0.8]
+  keyValue[
+    2.0 2.0 2.0,
+    0.0 0.0 0.0
+  ]
+}
+
+Sound{
+  source DEF sonVaisseau AudioClip{
+    url "UFO20.wav"
+    loop FALSE
+  }
+  minFront 100.0
+  minBack  100.0
+  maxFront 100.0
+  maxBack  100.0
+}
+
+Sound{
+  source DEF sonHumain AudioClip{
+    url "Screams.wav"
+    loop FALSE
+    stopTime 19
+  }
+  minFront 100.0
+  minBack  100.0
+  maxFront 100.0
+  maxBack  100.0
+}
+
+DEF StartSonHumain Script{
+  eventIn SFTime Cliquer
+  eventOut SFTime StartTime
+  eventOut SFTime StopTime
+  field SFBool Open FALSE
+
+  url "vrmlscript:
+    function Cliquer(value, time){
+      Open = ! Open;
+      if(Open){
+        StartTime=time+12;
+        StopTime = time+16;
+        }
+      else ;
+    }"
+}
+
+#animation trapdoor activation
+ROUTE OpenTrapDoor.touchTime TO KidnapTime.startTime
+ROUTE OpenTrapDoor.touchTime TO SpaceShipTime.startTime
+ROUTE OpenTrapDoor.touchTime TO sonVaisseau.set_startTime
+ROUTE OpenTrapDoor.touchTime TO StartSonHumain.Cliquer
+ROUTE StartSonHumain.StartTime TO sonHumain.set_startTime
+ROUTE StartSonHumain.StopTime TO sonHumain.set_stopTime
+#faisceau de lumière transparence
+ROUTE KidnapTime.fraction_changed TO ToggleLumiere.set_fraction
+ROUTE ToggleLumiere.value_changed TO KidnapLight.set_transparency
+#faisceau de lumière grosseur
+ROUTE KidnapTime.fraction_changed TO SizeLumiere.set_fraction
+ROUTE SizeLumiere.value_changed TO KidnapLumiere.set_scale
+#une trapdoor
+ROUTE KidnapTime.fraction_changed TO MoveTrapBack.set_fraction
+ROUTE MoveTrapBack.value_changed TO trapDoorBack.set_translation
+#autre trapdoor
+ROUTE KidnapTime.fraction_changed TO MoveTrapFront.set_fraction
+ROUTE MoveTrapFront.value_changed TO trapDoorFront.set_translation
+#Bouge le vaisseau
+ROUTE SpaceShipTime.fraction_changed TO MoveVaisseau.set_fraction
+ROUTE MoveVaisseau.value_changed TO spaceship.set_translation
+#Bouge l'alien dans le vaisseau.
+ROUTE SpaceShipTime.fraction_changed TO MoveAlien.set_fraction
+ROUTE MoveAlien.value_changed TO Alien.set_translation
+#Monte l'Humain
+ROUTE KidnapTime.fraction_changed TO MoveHumain.set_fraction
+ROUTE MoveHumain.value_changed TO Humain.set_translation
+#diminue la grosseur de l'humain
+ROUTE KidnapTime.fraction_changed TO SizeHumain.set_fraction
+ROUTE SizeHumain.value_changed TO Humain.set_scale
