@@ -1,5 +1,16 @@
 #VRML V2.0 utf8
 
+WorldInfo{
+  title "Le Méchant E.T."
+  info[
+    "Projet créé par Gabriel Lacroix.",
+    "Créé le 26 octobre 2018.",
+    "Le clic droit permet de changer les différents points de vue en sélectionnant celui désiré dans Viewpoint.
+    Les animations peuvent être déclenchées à deux endroits. L'ouverture et la fermeture de la fenêtre du vaisseau se fait en appuyant sur la fenêtre du vaisseau.
+    Le déplacement du vaisseau afin de kidnapper l'humain se fait au cliquant sur l'humain."
+  ]
+}
+
 #texte indicatif des instructions
 Billboard{
   axisOfRotation 0.0 1.0 0.0
