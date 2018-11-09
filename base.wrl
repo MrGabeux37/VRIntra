@@ -407,7 +407,6 @@ Sound{
   source DEF sonHumain AudioClip{
     url "Screams.wav"
     loop FALSE
-    stopTime 19
   }
   minFront 100.0
   minBack  100.0
