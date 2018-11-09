@@ -201,12 +201,12 @@ Group{
         eventIn SFTime Cliquer
         eventOut SFTime StartOpen
         eventOut SFTime StartClose
-        field SFBool Open FALSE
+        field SFBool EstOpen FALSE
 
         url "vrmlscript:
           function Cliquer(value, time){
-            Open = ! Open;
-            if(Open){StartOpen=time;}
+            EstOpen = ! EstOpen;
+            if(EstOpen){StartOpen=time;}
             else {StartClose=time;}
           }"
       }
