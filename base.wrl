@@ -424,7 +424,7 @@ DEF StartSonHumain Script{
     function Cliquer(value, time){
       Open = ! Open;
       if(Open){
-        StartTime=time+12;
+        StartTime = time+12;
         StopTime = time+16;
         }
       else ;
